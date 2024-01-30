@@ -158,7 +158,7 @@
     <div class="col-md-9 l-m-side content" style="height:95vh!important; overflow: auto!important;">
       <div class="alert bg-white shadow-sm border">
 
-        <?php include('all.php'); ?>
+        
        
       </div>
     </div>
