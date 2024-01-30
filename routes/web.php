@@ -26,4 +26,5 @@ Route::middleware(['auth','user-access:0'])->group(function(){
 // for admin
 Route::middleware(['auth','user-access:1'])->group(function(){
     Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('admin/role-form', [App\Http\Controllers\HomeController::class, 'showRoleForm'])->name('admin.role.form');
 });

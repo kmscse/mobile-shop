@@ -29,4 +29,8 @@ class HomeController extends Controller
     {
         return view('admin.home');
     }
+    public function showRoleForm()
+    {
+        return view('admin.role_form');
+    }
 }

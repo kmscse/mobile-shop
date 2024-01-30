@@ -1,5 +1,5 @@
 @extends('admin.layouts.nav')
 
 @section('content')
-  HELLO
+  <h1 class="text-center">Admin Dashboard</h1>
 @endsection

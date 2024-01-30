@@ -126,6 +126,17 @@
           </a>
       </li>
 
+      <li class="list-group-item  py-3 bg-white border rounded mt-2" style="font-size: 18px;">
+          <a href="" class="text-dark page-link fw-bold">
+            <i class="fa-solid fa-cash-register ms-4 me-2"></i>
+            Role Management
+          </a>
+          <a href="{{ route('admin.role.form') }}" class="text-dark page-link">
+            <small><i class="fa-solid fa-cash-register ms-5 mt-3 me-2"></i>
+            Add Role</small>
+          </a>
+      </li>
+
       <li class="list-group-item  py-3 mt-2 rounded bg-white border" style="font-size: 18px;">
           <a href="" class="text-dark fw-bold page-link">
             <i class="fa-solid fa-gauge ms-4 me-2"></i>
@@ -144,10 +155,14 @@
       </li>
 
       <li class="list-group-item  py-3 rounded bg-white border mt-2 mb-5" style="font-size: 18px;">
-          <a href="" class="text-dark page-link">
+          <!-- <a href="" class="text-dark page-link">
             <i class="fa-solid fa-gauge ms-4 me-2"></i>
             Logout
-          </a>
+          </a> -->
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="text-dark page-link"><i class="fa-solid fa-gauge ms-4 me-2"></i>Logout</button>
+          </form>
       </li>
 
           </ul>
