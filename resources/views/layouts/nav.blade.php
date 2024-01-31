@@ -73,10 +73,21 @@
             <i class="fa-solid fa-gear"></i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item text-secondary" href="#">Register</a></li>
-            <li><a class="dropdown-item text-secondary" href="#">Login</a></li>
+            @guest
+            <li><a class="dropdown-item text-secondary" href="{{ route('register') }}">Register</a></li>
+            <li><a class="dropdown-item text-secondary" href="{{ route('login') }}">Login</a></li>
+            @endguest
+
+            @auth
             <li><a class="dropdown-item text-secondary" href="history.php">User History</a></li>
-            
+              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+              </a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+              </form>
+            @endauth
           </ul>
         </li>
         <li class="nav-item list-unstyled" >
