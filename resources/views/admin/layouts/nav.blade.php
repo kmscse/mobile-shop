@@ -44,7 +44,7 @@
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link text-dark" aria-current="page" href="#">
-          Admin
+          {{auth()->user()->name}}
         </a>
       </li>
 

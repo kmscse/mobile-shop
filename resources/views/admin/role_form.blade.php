@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
                     <h1 class="text-center">Add Role Form</h1>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('add.role') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -65,13 +65,14 @@
                             <label class="col-md-4 col-form-label text-md-end">Role</label>
 
                             <div class="col-md-6">
-                               <select name="role" class="form-control">
+                               <select name="type" class="form-control">
                                 <option value="0">Admin</option>
                                 <option value="1">Supplier</option>
                                 <option value="2">Delivery</option>
                                </select>
                             </div>
                         </div>
+                        <input type="hidden" name="role" value="1">
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">

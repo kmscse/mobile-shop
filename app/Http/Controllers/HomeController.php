@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -32,5 +34,21 @@ class HomeController extends Controller
     public function showRoleForm()
     {
         return view('admin.role_form');
+    }
+    public function addRole(Request $request)
+    {
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        $user->type = $request->type;
+        $user->save();
+        return back();
+    }
+
+    public function home()
+    {
+        return view('index');
     }
 }
