@@ -1,4 +1,6 @@
+@extends('layouts.nav')
 
+@section('content')
 
 <!-- ..............slideshow.............. -->
 
@@ -59,3 +61,4 @@
 <div class="border container-fluid py-5 text-center bg-light mt-5">
 	<b>Copyright by Lobelia Students</b>
 </div>
+@endsection
