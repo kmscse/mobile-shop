@@ -61,4 +61,14 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function productForm()
+    {
+        return view('admin.product_form');
+    }
+
+    public function qcsForm()
+    {
+        return view('admin.qcs_form');
+    }
 }

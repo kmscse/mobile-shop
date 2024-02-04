@@ -30,5 +30,7 @@ Route::middleware(['auth','user-access:0'])->group(function(){
 Route::middleware(['auth','user-access:1'])->group(function(){
     Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
     Route::get('admin/role-form', [App\Http\Controllers\HomeController::class, 'showRoleForm'])->name('admin.role.form');
-    Route::post('admin/role-role', [App\Http\Controllers\HomeController::class, 'addRole'])->name('add.role');
+    Route::post('admin/add-role', [App\Http\Controllers\HomeController::class, 'addRole'])->name('add.role');
+    Route::get('admin/product-form', [ProductController::class, 'productForm'])->name('product.form');
+    Route::get('admin/qcs-form', [ProductController::class, 'qcsForm'])->name('qcs.form');
 });

@@ -97,9 +97,13 @@
             <i class="fa-solid fa-cash-register ms-4 me-2"></i>
             Product Management
           </a>
-          <a href="" class="text-dark page-link">
+          <a href="{{ route('product.form') }}" class="text-dark page-link">
             <small><i class="fa-solid fa-cash-register ms-5 mt-3 me-2"></i>
             Add Product</small>
+          </a>
+          <a href="{{ route('qcs.form') }}" class="text-dark page-link">
+            <small><i class="fa-solid fa-cash-register ms-5 mt-3 me-2"></i>
+            Add QCS</small>
           </a>
           <a href="" class="text-dark page-link">
             <small><i class="fa-solid fa-cash-register ms-5 mt-3 me-2"></i>
