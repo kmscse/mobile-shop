@@ -3,6 +3,13 @@
 @section('content')
 <h3 class="text-center mt-2 mb-4">Add QCS to Products</h3>
 <form action="">
+
+    <label class="fw-bold mb-2">Product</label>
+    <select class="form-control">
+        <option>-- Choose ---</option>
+        <option>White</option>
+    </select>
+    <label class="fw-bold mb-2">Quantity</label>
     <input type="" name="" class="form-control mb-2" placeholder="Enter Quantity">
 
     <label class="fw-bold mb-2">Available Color</label>

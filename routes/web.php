@@ -33,4 +33,5 @@ Route::middleware(['auth','user-access:1'])->group(function(){
     Route::post('admin/add-role', [App\Http\Controllers\HomeController::class, 'addRole'])->name('add.role');
     Route::get('admin/product-form', [ProductController::class, 'productForm'])->name('product.form');
     Route::get('admin/qcs-form', [ProductController::class, 'qcsForm'])->name('qcs.form');
+    Route::get('admin/add-product', [ProductController::class, 'addProduct'])->name('add.product');
 });
