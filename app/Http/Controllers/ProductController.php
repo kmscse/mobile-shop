@@ -92,7 +92,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->user_id = auth()->user()->id;
         
-        
+
         $product_photo_all_tmp_name = "";
         foreach($request->product_photos as $product_photo)
         {
@@ -124,6 +124,16 @@ class ProductController extends Controller
         $product = Product::find($id);
         $categories = Category::with('product')->get();
         return view('detail', compact('categories', 'available_products', 'product'));
+    }
+
+    public function detailColor(Request $request)
+    {
+        return $available_storages = AvailableProduct::where('product_id', $request->product_id)->where('color_id',$request->color_id)->get();
+    }
+
+    public function detailStorage(Request $request)
+    {
+        return $available_storages = AvailableProduct::where('product_id', $request->product_id)->where('color_id',$request->color_id)->where('storage', $request->storage)->get();
     }
 
     public function test()

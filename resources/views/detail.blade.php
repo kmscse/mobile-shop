@@ -56,16 +56,16 @@
 			<div class="row">   
 			<div class="col-md-5">
 				<label class="fw-bold mb-2">Available Color </label>
-				<select class="form-control">
+				<select class="form-control color">
 					<option>--- Choose ---</option>
 					@foreach($available_products as $available_product)
-					<option value="{{ $available_product->color->color }}">{{ $available_product->color->color }}</option>
+					<option value="{{ $available_product->color_id }}">{{ $available_product->color->color }}</option>
 					@endforeach
 				</select>	
 			</div>
 			<div class="col-md-5">
 				<label class="fw-bold mb-2">Available Memory</label>
-				<select class="form-control">
+				<select class="form-control storage">
 					<option>--- Choose ---</option>
 					@foreach($available_products as $available_product)
 					<option value="{{ $available_product->storage }}">{{ $available_product->storage }}</option>
@@ -74,7 +74,7 @@
 			</div>
 			<div class="col-md-2">
 				<label class="fw-bold mb-2">Quantity</label>
-				<input type="number" class="form-control" value="1" >	
+				<input type="number" class="form-control quantity" value="1" >	
 			</div>
 			</div>
 			<button class="btn btn-primary mt-4 atc_btn">Add to Cart</button>
@@ -100,5 +100,43 @@
 		
 	</div>
 </div>
+
+<script>
+	$('.color').change(function(){
+		var color_id = $(this).val()
+		var product_id = {{ $product->id }}
+		$.ajax({
+			url:"{{ route('detail.color') }}",
+			method:'GET',
+			data:{color_id, product_id},
+			success:function(result)
+			{
+				var a = "";
+				a+='<option value="">--Choose--</option>'
+				for(var i=0; i<result.length; i++)
+				{
+					a+='<option value="'+result[i].storage+'">'+result[i].storage+'</option>'
+				}
+				$('.storage').html(a)
+			}
+		})
+	})
+
+	$('.quantity').keyup(function() {
+		var quantity = $(this).val()
+		var color_id = $('.color').val()
+		var product_id = {{ $product->id }}
+		var storage = $('.storage').val()
+		$.ajax({
+			url:"{{ route('detail.storage') }}",
+			method: "GET",
+			data: {product_id, color_id, storage},
+			success: function(result)
+			{
+				console.log(result.quantity)
+			}
+		})
+	})
+</script>
 
 @endsection

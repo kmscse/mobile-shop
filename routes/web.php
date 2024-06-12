@@ -23,6 +23,8 @@ Route::get('admin/test', [ProductController::class, 'test']);
 Route::get('product/{id}', [ProductController::class, 'showProductDetail'])->name('show.product.detail');   
 
 Auth::routes();
+Route::get('detail-color', [ProductController::class, 'detailColor'])->name('detail.color');
+Route::get('detail-storage', [ProductController::class, 'detailStorage'])->name('detail.storage');
 // for users
 Route::middleware(['auth','user-access:0'])->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
