@@ -92,7 +92,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->user_id = auth()->user()->id;
         
-
+        
         $product_photo_all_tmp_name = "";
         foreach($request->product_photos as $product_photo)
         {
@@ -120,10 +120,10 @@ class ProductController extends Controller
 
     public function showProductDetail(string $id)
     {
-        $available_product = AvailableProduct::where('product_id', $id)->get();
+        $available_products = AvailableProduct::where('product_id', $id)->get();
         $product = Product::find($id);
-        $categories = Categories::with('product')->get();
-        return view('detail', compact('categories', 'available_product', 'product'));
+        $categories = Category::with('product')->get();
+        return view('detail', compact('categories', 'available_products', 'product'));
     }
 
     public function test()
