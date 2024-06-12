@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -55,5 +56,11 @@ class LoginController extends Controller
         {
             return redirect()->route('login')->with('error', 'Login failed');
         }
+    }
+
+    public function showLoginForm() 
+    {
+        $categories = Category::all();
+        return view('auth.login', compact('categories'));
     }
 }

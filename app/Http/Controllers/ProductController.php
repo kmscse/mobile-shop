@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\AvailableProduct;
 
 class ProductController extends Controller
 {
@@ -12,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $products = Product::all();
+        $categories = Category::with('product')->get();
+        return view('index', compact('products', 'categories'));
     }
 
     /**
@@ -71,7 +76,9 @@ class ProductController extends Controller
 
     public function qcsForm()
     {
-        return view('admin.qcs_form');
+        $products = Product::all();
+        $colors = Color::all();
+        return view('admin.qcs_form', compact('products', 'colors'));
     }
 
     public function addProduct(Request $request)
@@ -97,6 +104,26 @@ class ProductController extends Controller
         $product->product_photo = $product_photo_all_name;
         $product->save();
         return back();
+    }
+
+    public function addQcs(Request $request)
+    {
+        $available_product = new AvailableProduct;
+        $available_product->product_id = $request->product_id;
+        $available_product->quantity = $request->quantity;
+        $available_product->color_id = $request->color_id;
+        $available_product->storage = $request->storage;
+        $available_product->user_id = auth()->user()->id;
+        $available_product->save();
+        return back();
+    }
+
+    public function showProductDetail(string $id)
+    {
+        $available_product = AvailableProduct::where('product_id', $id)->get();
+        $product = Product::find($id);
+        $categories = Categories::with('product')->get();
+        return view('detail', compact('categories', 'available_product', 'product'));
     }
 
     public function test()

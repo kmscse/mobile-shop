@@ -40,20 +40,28 @@
 	</div>
 
 	<div class="row mt-5 py-5">
-
+		@foreach($products as $product)
 		<div class="col-sm-2">
 			<div class="card mb-4 shadow-sm">
-			  <img src="images/iphone1.jpg" class="card-img-top" alt="...">
+			  <img src="{{ asset('photos/'.explode(',', $product->product_photo)[0]) }}" class="card-img-top" alt="...">
 			  <div class="card-body text-center bg-light">
-			  	<span class="badge bg-warning rounded-pill">New</span>
-				<span class="badge bg-success rounded-pill">30%Off</span>
+				@if($product->created_at->format('Y-m-d') >= date('Y-m-d', strtotime('-1days')))
+			  		<span class="badge bg-warning rounded-pill">New</span>
+				@endif
+					@if($product->discount_price)
+					<span class="badge bg-success rounded-pill">
+						{{ round(100-$product->discount_price/$product->price*100, 2) }}%off
+					</span>
+					@endif
+				<!-- <span class="badge bg-success rounded-pill">30%Off</span> -->
 				<span class="badge bg-danger rounded-pill">Best Seller</span>
-			    <h6 class="card-title">i-phone 14Pro Max</h6>
-			    <p class="card-text"><small>2,300,000 MMK</small></p>
-			    <a href="detail.php" class="btn btn-primary btn-sm">Buy Item</a>
+			    <h6 class="card-title">{{ $product->name }}</h6>
+			    <p class="card-text"><small>{{number_format($product->price)}} MMK</small></p>
+			    <a href="{{ route('show.product.detail', $product->id)}}" class="btn btn-primary btn-sm">Buy Item</a>
 			  </div>
-			</div>
+			</div>	
 		</div>
+		@endforeach
 
 	</div>
 </div>

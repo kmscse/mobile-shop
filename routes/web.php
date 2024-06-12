@@ -19,6 +19,8 @@ use App\Http\Controllers\ProductController;
 // });
 
 Route::get('/', [ProductController::class, 'index']);
+Route::get('admin/test', [ProductController::class, 'test']);
+Route::get('product/{id}', [ProductController::class, 'showProductDetail'])->name('show.product.detail');   
 
 Auth::routes();
 // for users
@@ -33,5 +35,6 @@ Route::middleware(['auth','user-access:1'])->group(function(){
     Route::post('admin/add-role', [App\Http\Controllers\HomeController::class, 'addRole'])->name('add.role');
     Route::get('admin/product-form', [ProductController::class, 'productForm'])->name('product.form');
     Route::get('admin/qcs-form', [ProductController::class, 'qcsForm'])->name('qcs.form');
-    Route::get('admin/add-product', [ProductController::class, 'addProduct'])->name('add.product');
+    Route::post('admin/add-product', [ProductController::class, 'addProduct'])->name('add.product');
+    Route::post('admin/add-qcs', [ProductController::class, 'addQcs'])->name('add.qcs');
 });

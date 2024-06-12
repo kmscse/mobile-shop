@@ -38,18 +38,22 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="index.php">Home</a>
         </li>
-        
+        @foreach($categories as $category)
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false">
-            i-phone
+            {{ $category->category }}
           </a>
+          @if(count($category->product)>0)
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            @foreach($category->product as $pro)
+            <li><a class="dropdown-item" href="#">{{$pro->name}}</a></li>
+            @endforeach
           </ul>
+          @endif
         </li>
-
-        <li class="nav-item dropdown">
+        @endforeach
+    
+        <!-- <li class="nav-item dropdown"> 
           <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Samsung
           </a>
@@ -59,7 +63,7 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
 
       	<li class="nav-item list-unstyled" >
