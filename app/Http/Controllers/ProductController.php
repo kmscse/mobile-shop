@@ -139,11 +139,32 @@ class ProductController extends Controller
     public function addToCart(Request $request, $id)
     {
         $available_product = AvailableProduct::where('product_id', $id)->where('color_id',$request->color_id)->where('storage', $request->storage)->first();
+
+        $product = Product::find($id);
+        $color = Color::find($request->color_id);
+        $cart = session()->get('cart');
         $cart[$available_product->id] = [
-            "quantity" => $request->quantity,
-            "buy_price" => $request->buy_price
+            'product' => $product->name,
+            'product_photo' => $product->product_photo,
+            'color' => $color->color,
+            'storage' => $request->storage,
+            'quantity' => $request->quantity,
+            'buy_price' => $request->buy_price
         ];
         session()->put('cart', $cart);
+        return redirect()->route('cart');
+    }
+
+    public function cart()
+    {
+        $categories = Category::with('product')->get();
+        $cart = session()->get('cart');
+        return view('cart', compact('cart', 'categories'));
+    }
+
+    public function emptyCart()
+    {
+        session()->pull('cart');
         return redirect()->route('cart');
     }
 
