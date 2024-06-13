@@ -52,11 +52,14 @@
 
 			<label class="fw-bold">Descriptions</label>
 			<p>{!! $available_product->product->description !!}</p>
-			<form>
+			<form method="POST" action="{{ route('add.to.cart', $product->id) }}">
+				@csrf
+
+				<input type="text" value="@if($product->discount_price) {{ $product->discount_price	}} @else {{ $product->price }} @endif" name="buy_price">
 			<div class="row">   
 			<div class="col-md-5">
 				<label class="fw-bold mb-2">Available Color </label>
-				<select class="form-control color">
+				<select class="form-control color" name="color_id">
 					<option>--- Choose ---</option>
 					@foreach($available_products as $available_product)
 					<option value="{{ $available_product->color_id }}">{{ $available_product->color->color }}</option>
@@ -65,7 +68,7 @@
 			</div>
 			<div class="col-md-5">
 				<label class="fw-bold mb-2">Available Memory</label>
-				<select class="form-control storage">
+				<select class="form-control storage" disabled name="storage">
 					<option>--- Choose ---</option>
 					@foreach($available_products as $available_product)
 					<option value="{{ $available_product->storage }}">{{ $available_product->storage }}</option>
@@ -74,11 +77,11 @@
 			</div>
 			<div class="col-md-2">
 				<label class="fw-bold mb-2">Quantity</label>
-				<input type="number" class="form-control quantity" value="1" >	
+				<input type="number" class="form-control quantity" value="1" name="quantity">	
 				<span class="badge qty_error bg-warning"></span>
 			</div>
 			</div>
-			<button class="btn btn-primary mt-4 atc_btn">Add to Cart</button>
+			<button class="btn btn-primary mt-4 atc_btn" disabled>Add to Cart</button>
 			</form>
 
 		</div>
@@ -106,6 +109,15 @@
 	$('.color').change(function(){
 		var color_id = $(this).val()
 		var product_id = {{ $product->id }}
+		if(color_id == "")
+		{
+			$('.atc_btn').attr('disabled', true)
+		} else
+		{
+			$('.quantity').val(1)
+			$('.storage').removeAttr('disabled')
+			$('.atc_btn').attr('disabled', true)
+		}
 		$.ajax({
 			url:"{{ route('detail.color') }}",
 			method:'GET',

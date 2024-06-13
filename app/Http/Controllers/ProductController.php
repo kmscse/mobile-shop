@@ -133,7 +133,18 @@ class ProductController extends Controller
 
     public function detailStorage(Request $request)
     {
-        return $available_storages = AvailableProduct::where('product_id', $request->product_id)->where('color_id',$request->color_id)->where('storage', $request->storage)->get();
+        return $available_storages = AvailableProduct::where('product_id', $request->product_id)->where('color_id',$request->color_id)->where('storage', $request->storage)->first();
+    }
+
+    public function addToCart(Request $request, $id)
+    {
+        $available_product = AvailableProduct::where('product_id', $id)->where('color_id',$request->color_id)->where('storage', $request->storage)->first();
+        $cart[$available_product->id] = [
+            "quantity" => $request->quantity,
+            "buy_price" => $request->buy_price
+        ];
+        session()->put('cart', $cart);
+        return redirect()->route('cart');
     }
 
     public function test()
