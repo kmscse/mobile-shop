@@ -75,6 +75,7 @@
 			<div class="col-md-2">
 				<label class="fw-bold mb-2">Quantity</label>
 				<input type="number" class="form-control quantity" value="1" >	
+				<span class="badge qty_error bg-warning"></span>
 			</div>
 			</div>
 			<button class="btn btn-primary mt-4 atc_btn">Add to Cart</button>
@@ -133,7 +134,18 @@
 			data: {product_id, color_id, storage},
 			success: function(result)
 			{
-				console.log(result.quantity)
+				if(quantity > result.quantity)
+				{
+					$('.qty_error').text("Sorry we have "+result.quantity+" items in stock")
+					$('.atc_btn').attr('disabled', true)
+				} else if(quantity == "" || quantity < 1)
+				{
+					$('.atc_btn').attr('disabled', true)
+				}else 
+				{
+					$('.qty_error').text("")
+					$('.atc_btn').removeAttr('disabled')
+				}
 			}
 		})
 	})
