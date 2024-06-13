@@ -168,6 +168,14 @@ class ProductController extends Controller
         return redirect()->route('cart');
     }
 
+    public function removeCart($id)
+    {
+        $cart = session()->get('cart');
+        unset($cart[$id]);
+        session()->put('cart', $cart);
+        return redirect()->route('cart');
+    }
+
     public function test()
     {
         return auth()->user()->id;

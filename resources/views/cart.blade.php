@@ -3,6 +3,7 @@
 @section('content')
 <div class="container mt-5 pt-5 ">
 	<div class="table-responsive">
+        <a href="{{route('empty.cart')}}" class="btn btn-danger mb-2">Empty Cart</a>
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th width="100px">ID</th>
@@ -15,25 +16,28 @@
 			<th width="150px">Price <small>(MMK)</small></th>
 			<th width="90px">Remove</th>
 		</tr>
+        @php $total=0; @endphp
+        @foreach($cart as $k=>$c)
+        @php $total += $c['buy_price'] * $c['quantity']; @endphp
 		<tr>
-			<td>1dfsdfdfd</td>
-			<td>Iphone 13pro Max</td>
-			<td><img src="images/iphone1.jpg" width="70px" ></td>
-			<td>1000</td>
-			<td><input type="number" value="2" class="form-control"></td>
-			<td>Black</td>
-			<td>64gb</td>
-			<td>2000</td>
-			<td><button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></td>
+			<td>{{ $k }}</td>
+			<td>{{ $c['product'] }}</td>
+			<td><img src="{{ asset('photos/'.explode(',', $c['product_photo'])[0]) }}" width="70px" ></td>
+			<td>{{ number_format($c['buy_price']) }}</td>
+			<td><input type="number" value="{{ $c['quantity'] }}" class="form-control"></td>
+			<td>{{ $c['color'] }}</td>
+			<td>{{ $c['storage'] }}gb</td>
+			<td>{{ number_format($c['buy_price'] * $c['quantity']) }}</td>
+			<td><a href="{{ route('remove.cart',$k) }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
 		</tr>
+        @endforeach
 		<tr>
 			<td colspan="7" class="text-end"><b>Delivery Fee</b></td>
 			<td colspan="2">200</td>
-			
 		</tr>
 		<tr>
 			<td colspan="7" class="text-end"><b>Total Price</b></td>
-			<td colspan="2">2200</td>
+			<td colspan="2">{{ number_format($total+200) }}</td>
 			
 		</tr>
 	</table>
